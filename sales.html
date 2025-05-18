@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Business Dashboard - Sales</title>
+  <style>
+ :root {
+      --bg-color: #f4f4f4;
+      --text-color: Black;
+      --card-bg: white;
+      --sidebar-bg: skyblue;
+      --topbar-bg: blue;
+    }
+
+   body.dark {
+      --bg-color: black;
+      --text-color: black;
+      --card-bg: white;
+      --sidebar-bg: #333;
+      --topbar-bg: green;    
+ }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+    body {
+      display: flex;
+      min-height: 100vh;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+    }
+    /* Sidebar styles */
+    .sidebar {
+      width: 250px;
+      background: var(--sidebar-bg);
+      color: white;
+      padding: 20px;
+      position: fixed;
+      height: 100%;
+    }
+    .sidebar h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .sidebar ul li {
+      padding: 15px;
+      text-align: center;
+      cursor: pointer;
+      border-bottom: 1px solid black;
+      transition: background-color 0.3s;
+    }
+    .sidebar ul li:hover {
+      background-color: grey;
+    }
+    /* Main content */
+    .main-content {
+      margin-left: 250px;
+      padding: 20px;
+      flex: 1;
+    }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--topbar-bg);
+      color: rgb(255, 255, 255);
+      padding: 15px;
+      border-radius: 5px;
+    }
+    .chart-controls 
+    {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--card-bg);
+      color: var(--text-color); 
+      padding: 15px 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+.chart-controls h2 
+{
+  margin: 0;
+  font-size: 22px;
+  color: var( --text-color);
+}
+
+.selectors 
+{
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.selectors label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+}
+
+.selectors select {
+  margin-left: 8px;
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: white;
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+.selectors select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+.sales-chart {
+      margin-top: 20px;
+      padding: 20px;
+      background: var(--card-bg);
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .sales-stats h2, .sales-chart h2, .region-sales h2 {
+      margin-bottom: 15px;
+    }
+    .sales-kpi {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+  .sales-kpi div {
+  flex: 1;
+  padding: 10px;
+  background: var(--card-bg);  
+  border-radius: 5px;
+  text-align: center;
+  color: var(--text-color); 
+}
+    .sales-kpi div h3 {
+      margin-bottom: 10px;
+    }
+    .sales-kpi div p {
+      font-weight: bold;
+      color: #007bff;
+      font-size: 20px;
+    }
+
+       footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #2f3b52;
+      color: white;
+      margin-top: 30px;
+    }
+    
+    /* Table styles */
+    table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: white; 
+  color: black;             
+}
+
+th, td {
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #ddd;
+  color: black;             
+}
+
+th {
+  background-color: #007bff;
+  color: white;            
+}
+
+body.dark tr:nth-child(even) {
+  background-color: white;  
+}
+
+body.dark table {
+  background-color: white;  
+  color: black;              
+}
+
+  </style>
+
+<script src="theme.js"></script>
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar">
+  <h2>Dashboard</h2>
+  <ul>
+    <li><a href="home.html" style="color: white; text-decoration: none;">Home</a></li>
+    <li><a href="overview.html" style="color: white; text-decoration: none;">Overview</a></li>
+    <li><a href="sales.html" style="color: white; text-decoration: none;">Sales</a></li>
+    <li><a href="customers.html" style="color: white; text-decoration: none;">Customers</a></li>
+    <li><a href="reports.html" style="color: white; text-decoration: none;">Reports</a></li>
+    <li><a href="feedback.html" style="color: white; text-decoration: none;">Feedback</a></li>
+    <li><a href="settings.html" style="color: white; text-decoration: none;">Settings</a></li>
+  </ul>
+</div>
+
+
+
+<!-- Main Content -->
+<div class="main-content">
+  <div class="topbar">
+    <h1>Business Analytics - Sales Dashboard</h1>
+    <p>Welcome Mr. Durga Siva Sai Karthik Kumar</p>
+  </div>
+
+<div class="sales-stats">
+<h2>Sales Statistics</h2>
+<div class="sales-kpi">
+<div>
+<h3>Total Sales</h3>
+<p>₹20,30,000</p>
+</div>
+<div>
+<h3>Orders This Month</h3>
+<p>5,200</p>
+</div>
+<div>
+<h3>Conversion Rate</h3>
+<p>35.27%</p> <!-- Updated conversion rate -->
+</div>
+<div>
+<h3>Top Region</h3>
+<p>South India</p>
+</div>
+</div>
+</div>
+
+
+  <!-- Region Sales Table -->
+  <div class="region-sales">
+    <h2>Sales by Region</h2>
+    <table>
+      <thead>
+        <tr>
+<th>S.no</th>
+          <th>Region</th>
+          <th>Sales</th>
+          <th>Orders</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+ <td>1</td>
+          <td>South India</td>
+          <td>₹5,18,000</td>
+          <td>150</td>
+        </tr>
+        <tr>
+ <td>2</td>
+          <td>North India</td>
+          <td>₹2,08,000</td>
+          <td>112</td>
+        </tr>
+        <tr>
+ <td>3</td>
+<td>Singapore</td>
+          <td>₹2,07,000</td>
+          <td>80</td>
+        </tr>
+          
+        <tr>
+ <td>4</td>
+   <td>America</td>
+          <td>₹1,96,000</td>
+          <td>70</td>
+        </tr>
+          
+        <tr>
+ <td>5</td>
+ <td>Eastern India</td>
+          <td>₹1,94,000</td>
+          <td>65</td>
+        </tr>
+         
+        <tr>
+ <td>6</td>
+          <td>Japan</td>
+          <td>₹1,83,000</td>
+          <td>50</td>
+        </tr>
+        <tr>
+ <td>7</td>
+ <td>Western India</td>
+          <td>₹1,40,000</td>
+          <td>40</td>
+        </tr>
+       
+      </tbody>
+    </table>
+  </div>
+
+  <div class="chart-controls">
+      <h2>Sales Over Time</h2>
+      <div class="selectors">
+        <label>
+          Year:
+          <select id="yearSelect">
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+            <option value="2025" selected>2025</option>
+          </select>
+        </label>
+
+        <label id="monthLabel" style="display: none;">
+          Month:
+          <select id="monthSelect">
+            <option value="January">January</option>
+            <option value="February">February</option>
+            <option value="March">March</option>
+            <option value="April">April</option>
+            <option value="May">May</option>
+            <option value="June">June</option>
+          </select>
+        </label>
+      </div>
+    </div>
+
+<!-- Sales Chart -->
+  <div class="sales-chart">
+    <h2>Sales Over Time Chart</h2>
+    <canvas id="salesChart" style="max-width: 100%; height: 300px;"></canvas>
+  </div>
+
+
+
+<script>
+  const profitData = {
+    2023: { January: 120000, February: 150000, March: 170000, April: 140000, May: 180000, June: 160000, July: 140000, August: 168000, September: 186000, October: 190000, November: 200000, December: 150000 },
+    2024: { January: 200000, February: 220000, March: 210000, April: 250000, May: 230000, June: 240000, July: 240000, August: 218000, September: 286000, October: 200000, November: 270000, December: 300000 },
+    2025: { January: 200000, February: 350000, March: 250000, April: 400000, May: 500000, June: 350000 }
+  };
+
+  const ctx = document.getElementById('salesChart').getContext('2d');
+  let salesChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: [],
+      datasets: [{
+        label: 'Profit in ₹',
+        data: [],
+        borderColor: '#007bff',
+        fill: false,
+        tension: 0.1
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: 'top' },
+        tooltip: { mode: 'index', intersect: false }
+      },
+      interaction: {
+        mode: 'nearest',
+        intersect: false
+      },
+      scales: {
+        x: { title: { display: true, text: 'Months' }},
+        y: { title: { display: true, text: 'Profit (₹)' }, beginAtZero: true }
+      }
+    }
+  });
+
+  const yearSelect = document.getElementById('yearSelect');
+  const monthSelect = document.getElementById('monthSelect');
+  const monthLabel = document.getElementById('monthLabel');
+
+  function populateMonths(year) {
+    monthSelect.innerHTML = "";
+    Object.keys(profitData[year]).forEach(month => {
+      const option = document.createElement("option");
+      option.value = month;
+      option.textContent = month;
+      monthSelect.appendChild(option);
+    });
+  }
+function updateChart() {
+  const selectedYear = yearSelect.value;
+
+  if (selectedYear === "2025") {
+    monthLabel.style.display = "inline-block";
+
+    if (monthSelect.options.length === 0) {
+      populateMonths("2025");
+    }
+
+    const selectedMonth = monthSelect.value;
+    const monthsUpToSelected = [];
+    const profitsUpToSelected = [];
+
+    for (const month in profitData["2025"]) {
+      monthsUpToSelected.push(month);
+      profitsUpToSelected.push(profitData["2025"][month]);
+      if (month === selectedMonth) break;
+    }
+
+    salesChart.data.labels = monthsUpToSelected;
+    salesChart.data.datasets[0].data = profitsUpToSelected;
+
+  } else {
+    monthLabel.style.display = "none";
+    salesChart.data.labels = Object.keys(profitData[selectedYear]);
+    salesChart.data.datasets[0].data = Object.values(profitData[selectedYear]);
+  }
+
+  salesChart.update();
+}
+
+  
+  // Attach event listeners
+  yearSelect.addEventListener('change', () => {
+    // Clear month options when switching years
+    monthSelect.innerHTML = "";
+    updateChart();
+  });
+
+  monthSelect.addEventListener('change', updateChart);
+
+  // Initialize on load
+  updateChart();
+
+
+</script>
+
+
+<div>
+  <footer>
+    <p>&copy; 2025 Business Analytics Dashboard | All Rights Reserved</p>
+  </footer>
+</div>
+
+<script src="theme.js"></script>
+</body>
+</html>

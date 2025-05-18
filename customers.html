@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Business Dashboard - Customers</title>
+  <style>
+:root {
+      --bg-color: #f4f4f4;
+      --text-color: Black;
+      --card-bg: white;
+      --sidebar-bg: skyblue;
+      --topbar-bg: blue;
+    }
+
+   body.dark {
+      --bg-color: black;
+      --text-color: black;
+      --card-bg: white;
+      --sidebar-bg: #333;
+      --topbar-bg: green;    
+ }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+    body {
+      display: flex;
+      min-height: 100vh;
+      background-color:var(--bg-color);
+    }
+    /* Sidebar styles */
+    .sidebar {
+      width: 250px;
+      background: var(--sidebar-bg);
+      color: white;
+      padding: 20px;
+      position: fixed;
+      height: 100%;
+      transition: width 0.3s;
+    }
+    .sidebar h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .sidebar ul li {
+      padding: 15px;
+      text-align: center;
+      cursor: pointer;
+      border-bottom: 1px solid black;
+      transition: background-color 0.3s;
+    }
+    .sidebar ul li:hover {
+      background-color: grey;
+    }
+    /* Main content */
+    .main-content {
+      margin-left: 250px;
+      padding: 20px;
+      flex: 1;
+      transition: margin-left 0.3s;
+    }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      text-align:white;
+      align-items: center;
+      background: var(--topbar-bg);
+      color: white;
+      padding: 15px;
+      border-radius: 5px;
+    }
+    .customers-stats {
+      margin-top: 20px;
+      padding: 20px;
+      background: white;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .customers-stats h2 {
+      margin-bottom: 15px;
+    }
+    .customers-kpi {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .customers-kpi div {
+      flex: 1;
+      padding: 10px;
+      background: #e7f3fe;
+      border-radius: 5px;
+      text-align: center;
+      margin: 5px;
+    }
+    .customers-kpi div h3 {
+      margin-bottom: 10px;
+    }
+    .customers-kpi div p {
+      font-weight: bold;
+      color: #007bff;
+      font-size: 20px;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #2f3b52;
+      color: white;
+      margin-top: 30px;
+    }
+    /* Table styles */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      overflow-x: auto;
+    }
+    th, td {
+      padding: 12px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+    th {
+      background-color: #007bff;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 200px;
+      }
+      .main-content {
+        margin-left: 200px;
+      }
+      .customers-kpi div {
+        flex: 1 1 45%; /* Allow for wrapping */
+        margin: 10px 0;
+      }
+      table {
+        font-size: 14px;
+      }
+      .topbar h1 {
+        font-size: 18px;
+      }
+      .topbar p {
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .sidebar {
+        width: 0;
+        overflow: hidden;
+      }
+      .main-content {
+        margin-left: 0;
+      }
+      .topbar {
+        flex-direction: column;
+        text-align: center;
+      }
+      .sidebar ul {
+        display: none;
+      }
+      .sidebar.active {
+        width: 200px;
+      }
+      .customers-kpi div {
+        flex: 1 1 100%;
+      }
+      .topbar h1 {
+        font-size: 16px;
+      }
+      .topbar p {
+        font-size: 12px;
+      }
+    }
+
+    /* Hamburger Menu for Small Screens */
+    .hamburger {
+      display: none;
+      font-size: 30px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 480px) {
+      .hamburger {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar">
+  <h2>Dashboard</h2>
+  <ul>
+    <li><a href="home.html" style="color: white; text-decoration: none;">Home</a></li>
+    <li><a href="overview.html" style="color: white; text-decoration: none;">Overview</a></li>
+    <li><a href="sales.html" style="color: white; text-decoration: none;">Sales</a></li>
+    <li><a href="customers.html" style="color: white; text-decoration: none;">Customers</a></li>
+    <li><a href="reports.html" style="color: white; text-decoration: none;">Reports</a></li>
+    <li><a href="feedback.html" style="color: white; text-decoration: none;">Feedback</a></li>
+    <li><a href="settings.html" style="color: white; text-decoration: none;">Settings</a></li>
+  </ul>
+</div>
+
+<!-- Hamburger Icon for Mobile -->
+<div class="hamburger" onclick="toggleSidebar()">&#9776;</div>
+
+<!-- Main Content -->
+<div class="main-content">
+  <div class="topbar">
+    <h1>Business Analytics - Customers Dashboard</h1>
+    <p>Welcome Mr. Durga Siva Sai Karthik Kumar</p>
+  </div>
+
+  <!-- Customers Statistics -->
+  <div class="customers-stats">
+    <h2>Customer Statistics</h2>
+    <div class="customers-kpi">
+      <div>
+        <h3>Total Customers</h3>
+        <p>10,000</p>
+      </div>
+      <div>
+        <h3>New Customers This Month</h3>
+        <p>720</p>
+      </div>
+      <div>
+        <h3>Customer Retention Rate</h3>
+        <p>75%</p>
+      </div>
+      <div>
+        <h3>Top Region</h3>
+        <p>South India</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 50 Members Data Table -->
+  <div class="customers-stats">
+    <h2>Recent 50 Customer Orders</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>S.no.</th>
+          <th>Name of Customer</th>
+          <th>Country</th>
+          <th>Item Name</th>
+          <th>Quantity</th>
+          <th>Rate (₹)</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <!-- Sample data, replace it with actual customer data -->
+        <tr>
+<tr>
+<td>1</td>
+<td>Narsimha Rao </td>
+<td>South India</td>
+<td>Laptop</td>
+<td>2</td>
+<td>₹1,40,000</td>
+</tr>
+
+<tr>
+<td>2</td>
+<td>Syamala </td>
+<td>South India</td>
+<td>Camera</td>
+<td>1</td>
+<td>₹50,000</td>
+</tr>
+
+<tr>
+<td>3</td>
+<td>Chandu</td>
+<td>South India</td>
+<td>Smart phone,Smart Watch</td>
+<td>1,1</td>
+<td>₹35,000</td>
+</tr>
+
+<tr>
+<td>4</td>
+<td>John Doe</td>
+<td>America</td>
+<td>Monitor,Mouse</td>
+<td>2,1</td>
+<td>₹13,000</td>
+</tr>
+
+<tr>
+<td>5</td>
+<td>Jane Smith</td>
+<td>Singapore</td>
+<td>Camera</td>
+<td>1</td>
+<td>₹50,000</td>
+</tr>
+
+<tr>
+<td>6</td>
+<td>Akira</td>
+<td>japan</td>
+<td>Tablet</td>
+<td>3</td>
+<td>₹30,000</td>
+</tr>
+
+<tr>
+<td>7</td>
+<td>Priya Singh</td>
+<td>North India</td>
+<td>Headphones</td>
+<td>2</td>
+<td>₹6,000</td>
+</tr>
+
+<tr>
+<td>8</td>
+<td>Shivnarine</td>
+<td>western India</td>
+<td>Smartwatch</td>
+<td>1</td>
+<td>₹15,000</td>
+</tr>
+        
+<tr>
+<td>9</td>
+<td>Andrew</td>
+<td>Singapore</td>
+<td>Smartphone,Smart Watch</td>
+<td>1,1</td>
+<td>₹35,000</td>
+</tr>
+
+<tr>
+<td>10</td>
+<td>Nirmal</td>
+<td>South India</td>
+<td>Laptop</td>
+<td>2</td>
+<td>₹70,000</td>
+</tr>
+
+<tr>
+<td>11</td>
+<td>Michael</td>
+<td>America</td>
+<td>Printer</td>
+<td>3</td>
+<td>₹24,000</td>
+</tr>
+
+<tr>
+<td>12</td>
+<td>Girish Patel</td>
+<td>Eastern India</td>
+<td>Keyboard</td>
+<td>2</td>
+<td>₹8,000</td>
+</tr>
+
+<tr>
+<td>13</td>
+<td>Charan</td>
+<td>North India</td>
+<td>Ear Buds</td>
+<td>1</td>
+<td>₹7,000</td>
+</tr>
+
+<tr>
+<td>14</td>
+<td>Chaitanya</td>
+<td>Eastern India</td>
+<td>Smartphone</td>
+<td>2</td>
+<td>₹30,000</td>
+</tr>
+
+<tr>
+<td>15</td>
+<td>Nanda Kasyapa</td>
+<td>Western India</td>
+<td>Mouse</td>
+<td>2</td>
+<td>₹6,000</td>
+</tr>
+
+<tr>
+<td>16</td>
+<td>Hiroto</td>
+<td>Japan</td>
+<td>Headphones</td>
+<td>1</td>
+<td>₹3,000</td>
+</tr>
+
+<tr>
+<td>17</td>
+<td>Ammen Ali</td>
+<td>South India</td>
+<td>Camera</td>
+<td>1</td>
+<td>₹50,000</td>
+</tr>
+
+<tr>
+<td>18</td>
+<td>Haider</td>
+<td>North India</td>
+<td>Printer</td>
+<td>2</td>
+<td>₹16,000</td>
+</tr>
+
+<tr>
+<td>19</td>
+<td>Vivek Metal</td>
+<td>Singapore</td>
+<td>Laptop</td>
+<td>1</td>
+<td>₹70,000</td>
+</tr>
+
+<tr>
+<td>20</td>
+<td>Pavan Sai</td>
+<td>Western India</td>
+<td>Keyboard</td>
+<td>2</td>
+<td>₹8,000</td>
+</tr>
+
+<tr>
+<td>21</td>
+<td>Mahesh</td>
+<td>Eastern India</td>
+<td>Monitor,Keyboard</td>
+<td>1,1</td>
+<td>₹9,000</td>
+</tr>
+
+<tr>
+<td>22</td>
+<td>Frank</td>
+<td>America</td>
+<td>Smart Watch</td>
+<td>1</td>
+<td>₹15,000</td>
+</tr>
+
+<tr>
+<td>23</td>
+<td>Supradeep</td>
+<td>South India</td>
+<td>Camera</td>
+<td>1</td>
+<td>₹15,000</td>
+ </tr>
+
+<tr>
+<td>24</td>
+<td>Kenji</td>
+<td>Japan</td>
+<td>Ear buds</td>
+<td>1</td>
+<td>₹7,000</td>
+</tr>
+
+<tr>
+<td>25</td>
+<td>Vincent</td>
+<td>Singapore</td>
+<td>Smartphone</td>
+<td>1</td>
+<td>₹20,000</td>
+</tr>
+
+<tr>
+<td>26</td>
+<td>Ameer</td>
+<td>Western India</td>
+<td>Tablet</td>
+<td>2</td>
+<td>₹20,000</td>
+</tr>
+
+<tr>
+<td>27</td>
+<td>Mahith</td>
+<td>Eastern India</td>
+<td>Laptop</td>
+<td>1</td>
+<td>₹70,000</td>
+</tr>
+
+<tr>
+<td>28</td>
+<td>Sri Ram</td>
+<td>North India</td>
+<td>Mouse</td>
+<td>1</td>
+<td>₹3,000</td>
+</tr>
+
+<tr>
+<td>29</td>
+<td>Manohar</td>
+<td>South India</td>
+<td>Printer</td>
+<td>1</td>
+<td>₹8,000</td>
+</tr>
+
+<tr>
+<td>30</td>
+<td>Andy</td>
+<td>Singapore</td>
+<td>Smartwatch</td>
+<td>1</td>
+<td>₹15,000</td>
+</tr>
+
+<tr>
+<td>31</td>
+<td>Risa</td>
+<td>Japan</td>
+<td>Laptop</td>
+<td>2</td>
+<td>₹1,40,000</td>
+</tr>
+
+<tr>
+<td>32</td>
+<td>Oliver</td>
+<td>America</td>
+<td>Keyboard</td>
+<td>1</td>
+<td>₹4,000</td>
+</tr>
+
+<tr>
+<td>33</td>
+<td>Saritha</td>
+<td>North India</td>
+<td>mouse</td>
+<td>1</td>
+<td>₹3,000</td>
+</tr>
+
+<tr>
+<td>34</td>
+<td>Ramesh</td>
+<td>Western India</td>
+<td>monitor</td>
+<td>1</td>
+<td>₹5,000</td>
+</tr>
+
+<tr>
+<td>35</td>
+<td>Hana</td>
+<td>Singapore</td>
+<td>Earbuds</td>
+<td>2</td>
+<td>₹14,000</td>
+</tr>
+
+<tr>
+<td>36</td>
+<td>Surya</td>
+<td>North India</td>
+<td>Laptop</td>
+<td>2</td>
+<td>₹1,40,000</td>
+</tr>
+
+<tr>
+<td>37</td>
+<td>Ayumi</td>
+<td>Japan</td>
+<td>Headphone</td>
+<td>1</td>
+<td>₹3,000</td>
+</tr>
+
+<tr>
+<td>38</td>
+<td>Tarun</td>
+<td>Western India</td>
+<td>printer</td>
+<td>1</td>
+<td>₹8,000</td>
+</tr>
+
+<tr>
+<td>39</td>
+<td>Avinash</td>
+<td>North India</td>
+<td>Smartphone</td>
+<td>1</td>
+<td>₹20,000</td>
+</tr>
+
+<tr>
+<td>40</td>
+<td>Sarah</td>
+<td>Singapore</td>
+<td>Mouse</td>
+<td>1</td>
+<td>₹3,000</td>
+</tr>
+
+<tr>
+<td>41</td>
+<td>Omika</td>
+<td>Eastern India</td>
+<td>Laptop</td>
+<td>1</td>
+<td>₹70,000</td>
+</tr>
+
+<tr>
+<td>42</td>
+<td>Bhavani</td>
+<td>North India</td>
+<td>Printer</td>
+<td>1</td>
+<td>₹8,000</td>
+</tr>
+
+<tr>
+<td>43</td>
+<td>Likitha</td>
+<td>South India</td>
+<td>Tablet</td>
+<td>1</td>
+<td>₹10,000</td>
+</tr>
+
+<tr>
+<td>44</td>
+<td>Mateo</td>
+<td>America</td>
+<td>Laptop</td>
+<td>2</td>
+<td>₹1,40,000</td>
+</tr>
+
+<tr>
+<td>45</td>
+<td>Lavanya</td>
+<td>Western India</td>
+<td>printer</td>
+<td>1</td>
+<td>₹8,000</td>
+</tr>
+
+<tr>
+<td>46</td>
+<td>Hesmika</td>
+<td>Western India</td>
+<td>Laptop</td>
+<td>1</td>
+<td>₹70,000</td>
+</tr>
+
+<tr>
+<td>47</td>
+<td>Punarvi</td>
+<td>Eastern India</td>
+<td>Earbuds</td>
+<td>1</td>
+<td>₹7,000</td>
+</tr>
+
+<tr>
+<td>48</td>
+<td>Sai</td>
+<td>South India</td>
+<td>Laptop</td>
+<td>1</td>
+<td>₹70,000</td>
+</tr>
+
+<tr>
+<td>49</td>
+<td>Gopi</td>
+<td>North India</td>
+<td>Monitor</td>
+<td>1</td>
+<td>₹5,000</td>
+</tr>
+
+<tr>
+<td>50</td>
+<td>Praveen</td>
+<td>South India</td>
+<td>Laptop</td>
+<td>1</td>
+<td>₹70,000</td>
+</tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Business Analytics Dashboard | All Rights Reserved</p>
+  </footer>
+</div>
+<script src="theme.js"></script>
+
+</body>
+</html>

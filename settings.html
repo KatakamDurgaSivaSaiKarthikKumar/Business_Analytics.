@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Business Dashboard - Settings</title>
+  <style>
+    :root {
+      --bg-color: #f4f4f4;
+      --text-color: black;
+      --card-bg: white;
+      --sidebar-bg: skyblue;
+      --topbar-bg: blue;
+      --button-color: blue;
+      --button-hover-colour:rgba(11, 11, 139, 0.786);
+    }
+    body.dark {
+      --bg-color: black;
+      --text-color: black;
+      --card-bg: white;
+      --sidebar-bg: #333;
+      --topbar-bg: green;
+      --button-color: rgb(29, 213, 29);
+      --button-hover-colour:green;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+    body {
+      display: flex;
+      min-height: 100vh;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+    }
+    .sidebar {
+      width: 250px;
+      background: var(--sidebar-bg);
+      color: white;
+      padding: 20px;
+      position: fixed;
+      height: 100%;
+    }
+    .sidebar h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .sidebar ul li {
+      padding: 15px;
+      text-align: center;
+      cursor: pointer;
+      border-bottom: 1px solid black;
+      transition: background-color 0.3s;
+    }
+    .sidebar ul li:hover {
+      background-color: grey;
+    }
+    .sidebar ul li a {
+      color: white;
+      text-decoration: none;
+}
+    .main-content {
+      margin-left: 250px;
+      padding: 20px;
+      width:100%;
+      flex: 1;
+    }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--topbar-bg);
+      color: white;
+      padding: 15px;
+      border-radius: 5px;
+    }
+
+    /* Profile Section */
+    .profile-section {
+      display: flex;
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+.profile-section {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .profile-section img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin-right: 20px;
+      cursor: pointer
+    }
+    .profile-details h3 {
+      margin: 0px;
+      font-size: 20px;
+    }
+    .profile-details p {
+      margin: 4px 0;
+    }
+
+    /* Settings Cards */
+    .settings-card {
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+    }
+    .switch input { display: none; }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0;
+      right: 0; bottom: 0;
+      background-color: #ccc;
+      transition: 0.4s;
+      border-radius: 34px;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0;
+      right: 0; bottom: 0;
+      background-color: #ccc;
+      transition: 0.4s;
+      border-radius: 34px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px; width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.4s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background-color: #2196F3;
+    }
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+
+ /* Entire Settings Section */
+.settings-section {
+  background: var(--card-bg);  /* Match your theme's card background */
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Section Title */
+.settings-section h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 22px;
+  color: var(--text-color);
+}
+
+/* Primary Button Styling */
+.settings-section button {
+  background-color: var(--button-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+/* Button Hover Effect */
+.settings-section button:hover {
+  background-color: var(--button-hover-colour);
+}
+
+/* Hidden Password Fields Container */
+#passwordFields {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: var(--input-bg, #f9f9f9);
+}
+
+/* Input Field Group Styling */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+/* Label Styling */
+.input-group label {
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+/* Input Styling */
+.input-group input {
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Focused Input Styling */
+.input-group input:focus {
+  border-color: var(--primary-color, #4CAF50);
+  box-shadow: 0 0 4px rgba(76, 175, 80, 0.4);
+}
+/* Popup Notification Style */
+.popup-message {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: #28a745;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s ease;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.popup-message.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+
+/* Simple toggle switch style */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px; width: 18px;
+  left: 3px; bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #007bff;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+/* Align switch and label */
+.switch-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+    @media (max-width: 600px) {
+      .profile-section {
+        flex-direction: column;
+        text-align: center;
+      }
+      .profile-section img {
+        margin-bottom: 10px;
+      }
+    }
+
+ /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      padding-top: 60px;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.8);
+    }
+    .modal-content {
+      margin: auto;
+      display: block;
+      max-width: 80%;
+      max-height: 80%;
+    }
+    .modal-content, .modal {
+      animation-name: zoom;
+      animation-duration: 0.4s;
+    }
+    @keyframes zoom {
+      from {transform: scale(0)} 
+      to {transform: scale(1)}
+    }
+    .close {
+      position: absolute;
+      top: 20px;
+      right: 35px;
+      color: #fff;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    @media (max-width: 768px) {
+      .sidebar { width: 200px; }
+      .main-content { margin-left: 220px; }
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar">
+  <h2>Dashboard</h2>
+  <ul>
+    <li><a href="home.html" style="color: white; text-decoration: none;">Home</a></li>
+    <li><a href="overview.html" style="color: white; text-decoration: none;">Overview</a></li>
+    <li><a href="sales.html" style="color: white; text-decoration: none;">Sales</a></li>
+    <li><a href="customers.html" style="color: white; text-decoration: none;">Customers</a></li>
+    <li><a href="reports.html" style="color: white; text-decoration: none;">Reports</a></li>
+    <li><a href="feedback.html" style="color: white; text-decoration: none;">Feedback</a></li>
+    <li><a href="settings.html" style="color: white; text-decoration: none;">Settings</a></li>
+  </ul>
+</div>
+
+<div class="main-content">
+    <div class="topbar">
+      <h1>Business Analytics - Settings</h1>
+      <p>Welcome Mr. Durga Siva Sai Karthik Kumar</p>
+    </div>
+
+  <!-- Profile Section -->
+<div class="profile-section">
+  <h3>👤 Profile</h3>
+  <img src="profile.jpg" alt="Owner Picture" id="profilePic">
+  <div class="profile-details">
+    <h3>Durga Siva Sai Karthik Kumar</h3>
+    <p>Email: katakamkarthikXXX@gmail.com</p>
+    <p>Role: Business Owner</p>
+    <p>Registered Mobile: +91 XXXXXXXXXX</p>
+  </div>
+</div>
+
+<!-- Hidden Input for Upload -->
+<input type="file" id="uploadPic" accept="image/*" style="display:none;">
+
+<!-- Simple Modal Structure -->
+<div id="picOptionsModal" class="modal" style="display:none; position:fixed; justify-content:center; align-items:center; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5);">
+  <div style="background:white; padding:20px; border-radius:8px; display:flex; flex-direction:column; gap:10px;">
+    <button onclick="viewProfilePic()">View Profile Picture</button>
+    <button onclick="changeProfilePic()">Change Profile Picture</button>
+    <button onclick="closeModal()"> Cancel </button>
+</div>
+</div>
+
+<div id="imgModal" class="modal" style="display:none; position:fixed; justify-content:center; align-items:center; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7);">
+  <img id="modalImg" src="" style="max-width:90%; max-height:90%;">
+  <button onclick="closeModal()" style="position:absolute; top:20px; right:20px;"> X </button>
+</div>
+
+<script>
+  const profilePic = document.getElementById("profilePic");
+  const uploadInput = document.getElementById("uploadPic");
+  const modalImg = document.getElementById("modalImg");
+
+  // Open option modal on profile pic click
+  profilePic.onclick = function () {
+    document.getElementById("picOptionsModal").style.display = "flex";
+  };
+
+  // View the profile picture in modal
+  function viewProfilePic() {
+    document.getElementById("picOptionsModal").style.display = "none";
+    document.getElementById("imgModal").style.display = "flex";
+    modalImg.src = profilePic.src;
+  }
+
+  // Trigger file input to change profile picture
+  function changeProfilePic() {
+    document.getElementById("picOptionsModal").style.display = "none";
+    uploadInput.click();
+  }
+
+  // Close any open modal
+  function closeModal() {
+    document.querySelectorAll(".modal").forEach(modal => modal.style.display = "none");
+  }
+
+  // When user selects a new image
+  uploadInput.addEventListener("change", function () {
+    const file = this.files[0];
+    if (file && file.type.startsWith("image/")) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const imageDataUrl = e.target.result;
+        profilePic.src = imageDataUrl;
+        localStorage.setItem("profilePic", imageDataUrl);
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  // Load stored profile picture on page load
+  window.onload = function() {
+    const savedPic = localStorage.getItem("profilePic");
+    if (savedPic) {
+      profilePic.src = savedPic;
+    }
+  }
+</script>
+
+<div class="settings-section">
+  <h3>🔔 Notification Settings</h3>
+  <div class="switch-label">
+    <label for="notification-toggle">Enable Notifications</label>
+    <label class="switch">
+      <input type="checkbox" id="notification-toggle" />
+      <span class="slider"></span>
+    </label>
+  </div>
+</div>
+
+<script>
+// This example could be a simple toggle for notifications
+document.getElementById('notification-toggle').addEventListener('change', function() {
+  if (this.checked) {
+    // Enable notifications (e.g., show a success popup or store it in localStorage)
+    showPopupMessage('Notifications enabled!');
+    localStorage.setItem('notificationsEnabled', true);
+  } else {
+    // Disable notifications
+    showPopupMessage('Notifications disabled.');
+    localStorage.setItem('notificationsEnabled', false);
+  }
+});
+
+function showPopupMessage(message) {
+  let popup = document.createElement('div');
+  popup.classList.add('popup-message');
+  popup.innerHTML = message;
+  document.body.appendChild(popup);
+  
+  // Show the popup
+  setTimeout(() => popup.classList.add('show'), 100);
+  
+  // Hide the popup after 3 seconds
+  setTimeout(() => popup.classList.remove('show'), 3000);
+}
+</script>
+
+<!-- In your settings page (settings.html) -->
+<div class="settings-section">
+  <h3>🎨 Dark Mode</h3>
+  <div class="switch-label">
+    <label for="dark-mode-toggle">Enable Dark Mode</label>
+    <label class="switch">
+  <input type="checkbox" id="darkModeToggle">
+  <span class="slider"></span>
+</label>
+    </label>
+  </div>
+</div>
+
+
+<script src="theme.js"></script> <!-- Make sure this is included to access applyTheme -->
+
+<script>
+  // Check if dark mode toggle exists on the settings page
+  const darkModeToggle = document.getElementById('darkModeToggle');
+
+  if (darkModeToggle) {
+    // Set the initial state based on localStorage value
+    darkModeToggle.checked = localStorage.getItem('theme') === 'dark';
+
+    // Add an event listener to toggle dark mode
+    darkModeToggle.addEventListener('change', function () {
+      const theme = this.checked ? 'dark' : 'light';
+      localStorage.setItem('theme', theme); // Save the selected theme
+      applyTheme(theme); // Apply the theme to the page
+    });
+  }
+</script>
+
+
+<div class="settings-section">
+      <h3>🔒 Change Password</h3>
+      <button onclick="togglePasswordFields()">Change Password</button>
+      <div id="passwordFields" style="display:none;">
+        <div class="input-group">
+          <label for="old-password">Old Password</label>
+          <input type="password" id="old-password" placeholder="Enter old password">
+        </div>
+        <div class="input-group">
+          <label for="new-password">New Password</label>
+          <input type="password" id="new-password" placeholder="Enter new password">
+        </div>
+        <div class="input-group">
+          <label for="confirm-password">Confirm New Password</label>
+          <input type="password" id="confirm-password" placeholder="Confirm new password">
+        </div>
+        <button onclick="changePassword()">Save Password</button>
+      </div>
+    </div>
+<!-- Your 2FA Section -->
+<div class="settings-card">
+  <h2>📱 Two-Factor Authentication</h2>
+  <div class="twofactor">
+    <label class="switch-label">
+      <span>Enable 2FA</span>
+      <label class="switch">
+        <input type="checkbox" id="twoFactorToggle" onchange="handleTwoFactorToggle()">
+        <span class="slider"></span>
+      </label>
+    </label>
+
+    <!-- Two-Factor Authentication Section (Initially Hidden) -->
+    <div class="settings-section" id="twoFactorInputs" style="display: none;">
+      <h3>Two-Factor Authentication</h3>
+
+      <div class="input-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="Enter your email" required />
+      </div>
+
+      <div class="input-group">
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" placeholder="Enter your phone number" required />
+      </div>
+
+      <button onclick="verifyTwoFactor()" class="verify-2fa-btn">Verify</button>
+    </div>
+  </div>
+</div>
+
+<!-- Pop-up Notification -->
+<div id="popupMessage" class="popup-message">Your Two-Factor Authentication details have been updated!</div>
+
+<script>
+function handleTwoFactorToggle() {
+  const isEnabled = document.getElementById("twoFactorToggle").checked;
+  const inputSection = document.getElementById("twoFactorInputs");
+
+  if (isEnabled) {
+    inputSection.style.display = "block";
+    alert("Two-Factor Authentication is now enabled.\nPlease enter your Email and Phone number to complete setup.");
+  } else {
+    inputSection.style.display = "none";
+    alert("Two-Factor Authentication has been disabled.");
+  }
+}
+
+function verifyTwoFactor() {
+  const email = document.getElementById('email').value;
+  const phone = document.getElementById('phone').value;
+
+  if (!validateEmail(email)) {
+    alert("Please enter a valid email address.");
+    return;
+  }
+
+  if (!validatePhone(phone)) {
+    alert("Please enter a valid 10-digit phone number.");
+    return;
+  }
+
+  alert(`Your Two-Factor Authentication verification code has been sent to:\nEmail: ${email}\nPhone: ${phone}`);
+}
+
+function validateEmail(email) {
+  const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+  return emailRegex.test(email);
+}
+
+function validatePhone(phone) {
+  const phoneRegex = /^[0-9]{10}$/;
+  return phoneRegex.test(phone);
+}
+
+function showPopup(message) {
+  const popup = document.getElementById("popupMessage");
+  popup.textContent = message;
+  popup.classList.add("show");
+
+  setTimeout(() => {
+    popup.classList.remove("show");
+  }, 3000);
+}
+</script>
+
+
+  <footer style="text-align:center; padding:20px; background:#2f3b52; color:white; margin-top:30px;">
+    <p>&copy; 2025 Business Analytics Dashboard | All Rights Reserved</p>
+  </footer>
+</div>
+
+<script>
+  function togglePasswordFields() {
+    const fields = document.getElementById('passwordFields');
+    fields.style.display = fields.style.display === 'block' ? 'none' : 'block';
+  }
+</script>
+<script src="theme.js"></script>
+</body>
+</html>

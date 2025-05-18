@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Business Analytics - Reports</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --bg-color: #f4f4f9;
+      --text-color: black;
+      --card-bg: white;
+      --sidebar-bg: skyblue;
+      --topbar-bg: blue;
+      --footer-bg: #222;
+    }
+
+    body.dark {
+      --bg-color: black;
+      --text-color: white;
+      --card-bg: #2e2e2e;
+      --sidebar-bg: #333;
+      --topbar-bg: green;
+      --footer-bg: #111;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+    }
+
+    .sidebar {
+      width: 250px;
+      background: var(--sidebar-bg);
+      color: white;
+      padding: 20px;
+      position: fixed;
+      height: 100%;
+    }
+
+    .sidebar h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .sidebar ul li {
+      padding: 15px;
+      text-align: center;
+      cursor: pointer;
+      border-bottom: 1px solid black;
+      transition: background-color 0.3s;
+    }
+
+    .sidebar ul li:hover {
+      background-color: grey;
+    }
+
+    .main-content {
+      margin-left: 250px;
+      padding: 20px;
+      flex: 1;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--topbar-bg);
+      color: white;
+      padding: 15px;
+      border-radius: 5px;
+    }
+
+    .content {
+      margin-top: 30px;
+      background: var(--card-bg);
+      color: var(--text-color);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .report-section {
+      margin-top: 20px;
+      padding: 20px;
+      background: var(--bg-color);
+      color: var(--text-color);
+      border-radius: 5px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .charts {
+      margin-top: 20px;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .chart-container {
+      background: var(--card-bg);
+      color: var(--text-color);
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      width: 48%;
+      height: 300px;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 200px;
+      }
+
+      .main-content {
+        margin-left: 200px;
+      }
+
+      .charts {
+        flex-direction: column;
+      }
+
+      .chart-container {
+        width: 100%;
+      }
+    }
+
+    .activity-log ul {
+      list-style-type: none;
+    }
+
+    .activity-log li {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .insights p {
+      margin: 10px 0;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    .button-container {
+      display: flex;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .invest-button {
+      padding: 15px 30px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      color: #fff;
+      transition: background-color 0.3s ease;
+    }
+
+    .stocks-btn {
+      background-color: #007bff;
+    }
+
+    .stocks-btn:hover {
+      background-color: #0056b3;
+    }
+
+    .gold-btn {
+      background-color: #ffc107;
+      color: #000;
+    }
+
+    .gold-btn:hover {
+      background-color: #d39e00;
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--footer-bg);
+      color: white;
+      text-align: center;
+      padding: 15px 0;
+      margin-left: 250px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2>Dashboard</h2>
+    <ul>
+      <li><a href="home.html" style="color: white; text-decoration: none;">Home</a></li>
+      <li><a href="overview.html" style="color: white; text-decoration: none;">Overview</a></li>
+      <li><a href="sales.html" style="color: white; text-decoration: none;">Sales</a></li>
+      <li><a href="customers.html" style="color: white; text-decoration: none;">Customers</a></li>
+      <li><a href="reports.html" style="color: white; text-decoration: none;">Reports</a></li>
+      <li><a href="feedback.html" style="color: white; text-decoration: none;">Feedback</a></li>
+      <li><a href="settings.html" style="color: white; text-decoration: none;">Settings</a></li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="topbar">
+      <h1>Business Analytics - Reports</h1>
+      <p>Welcome Mr. Durga Siva Sai Karthik Kumar</p>
+    </div>
+
+    <div class="content">
+      <h3>Company Market Position</h3>
+      <p><strong>Your Business is ranked #10 in the industry</strong></p>
+      <p>Growth rate: 8% in the last quarter</p>
+    </div>
+
+    <div class="cards">
+      <div class="content">
+        <h3>Indian Stock Market Overview</h3>
+        <p><b>Sensex: ₹56,500</b></p>
+        <p><b>Nifty: ₹16,500</b></p>
+        <p>Top Gainers:<br>1. TATA <br> 2. Reliance<br> 3.Adani</p>
+        <img src="https://cdn4.premiumread.com/?url=https://www.omanobserver.om/omanobserver/uploads/images/2025/04/07/2972532.jpg&w=840&q=90&f=jpg" alt="Stock Market" width="150" height="100">
+      </div>
+
+      <div class="content">
+        <h3>Today's Gold Rate</h3>
+        <p><strong>₹5,000 per 10g</strong></p>
+        <p>Gold price change: +1.2% (Today)</p>
+        <img src="https://hkduttajewellers.in/wp-content/uploads/2024/06/depositphotos_19492613-stock-photo-gold-ingots.webp" alt="Gold" width="150" height="100">
+      </div>
+
+      <div class="content">
+        <h3>Bitcoin Price</h3>
+        <p><strong>₹35,00,000 per BTC</strong></p>
+        <p>Change: +2.5% in the last 24 hours</p>
+        <img src="https://media.istockphoto.com/id/1329055819/photo/olsztyn-poland-13-july-2021-golden-bitcoin-coin-over-defocused-stock-chart.jpg?s=612x612&w=0&k=20&c=8SedFCFB5uIf4-I-j-ZFk3aJ2lhawtXZvY4dPjmNJpM=" alt="Bitcoin" width="150" height="100">
+      </div>
+    </div>
+
+    <div class="report-section">
+      <h3>Investment Advice</h3>
+      <p>Our analysis suggests the following investment options for safe growth:</p>
+      <ul>
+        <li><strong>Stocks to Invest in:</strong> TATA, Reliance JIO</li>
+        <li><strong>Commodity:</strong> Gold, Silver</li>
+        <li><strong>Cryptocurrency:</strong> Bitcoin (short-term investment)</li>
+      </ul>
+    </div>
+
+    <div class="charts">
+      <div class="chart-container">
+        <canvas id="stockMarketChart"></canvas>
+      </div>
+      <div class="chart-container">
+        <canvas id="goldPriceChart"></canvas>
+      </div>
+    </div>
+
+    <div class="content" style="margin-top: 20px;">
+      <h3>Select Your Investment Option</h3>
+      <div class="button-container">
+        <button class="invest-button stocks-btn" onclick="investIn('stocks')">Invest in Stocks</button>
+        <button class="invest-button gold-btn" onclick="investIn('gold')">Invest in Gold</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 Business Analytics Dashboard | Developed by Durga Siva Sai Karthik Kumar
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Stock Market Chart
+    var ctx1 = document.getElementById('stockMarketChart').getContext('2d');
+    var stockMarketChart = new Chart(ctx1, {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        datasets: [{
+          label: 'Stock Market Index (Sensex)',
+          data: [55000, 56000, 57000, 55000, 58000, 59000],
+          backgroundColor: 'rgba(52, 152, 219, 0.2)',
+          borderColor: 'skyblue',
+          borderWidth: 2
+        }]
+      }
+    });
+
+    // Gold Price Chart
+    var ctx2 = document.getElementById('goldPriceChart').getContext('2d');
+    var goldPriceChart = new Chart(ctx2, {
+      type: 'bar',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        datasets: [{
+          label: 'Gold Price (₹ per 10g)',
+          data: [4900, 5000, 5100, 5200, 5100, 5050],
+          backgroundColor: 'rgba(255, 215, 0, 0.6)',
+          borderColor: 'gold',
+          borderWidth: 2
+        }]
+      }
+    });
+
+    function investIn(option) {
+      alert(`You selected to invest in ${option.toUpperCase()}!`);
+    }
+  </script>
+
+  <script src="theme.js"></script>
+
+</body>
+</html>

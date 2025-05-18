@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Business Analytics - Feedback</title>
+  <style>
+    :root {
+      --bg-color: #f4f4f4;
+      --text-color: black;
+      --card-bg: white;
+      --sidebar-bg: skyblue;
+      --topbar-bg: blue;
+    }
+
+    body.dark {
+      --bg-color: black;
+      --text-color: black;
+      --card-bg: white;
+      --sidebar-bg: #333;
+      --topbar-bg: green;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+    }
+
+    .sidebar {
+      width: 250px;
+      background: var(--sidebar-bg);
+      color: white;
+      padding: 20px;
+      position: fixed;
+      height: 100%;
+    }
+
+    .sidebar h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .sidebar ul li {
+      padding: 15px;
+      text-align: center;
+      cursor: pointer;
+      border-bottom: 1px solid black;
+      transition: background-color 0.3s;
+    }
+
+    .sidebar ul li:hover {
+      background-color: grey;
+    }
+
+    .main-content {
+      flex: 1;
+      margin-left: 250px;
+      padding: 20px;
+      width: calc(100% - 250px);
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--topbar-bg);
+      color: white;
+      padding: 15px;
+      border-radius: 5px;
+    }
+
+    .feedback-list {
+      margin-top: 30px;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    h3 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .feedback-item {
+      border-bottom: 1px solid #ddd;
+      padding: 15px;
+    }
+
+    .feedback-item:last-child {
+      border-bottom: none;
+    }
+
+    .feedback-item h4 {
+      margin-bottom: 5px;
+      font-size: 18px;
+    }
+
+    .feedback-item p {
+      margin-bottom: 10px;
+    }
+
+    .feedback-item span {
+      font-weight: bold;
+    }
+
+    .reply-btn {
+      background-color: transparent;
+      border: none;
+      color: blue;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    .reply-box {
+      display: none;
+      margin-top: 10px;
+    }
+
+    .reply-box textarea {
+      width: 100%;
+      height: 60px;
+      padding: 10px;
+      margin-bottom: 5px;
+      resize: vertical;
+    }
+
+    .reply-box button {
+      padding: 5px 10px;
+      background-color: blue;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .footer {
+      margin-left: 250px;
+      background-color: #2f3b52;
+      color: white;
+      text-align: center;
+      padding: 15px 10px;
+      position: relative;
+      bottom: 0;
+      width: calc(100% - 250px);
+      font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 200px;
+      }
+
+      .main-content {
+        margin-left: 220px;
+        width: calc(100% - 220px);
+      }
+
+      .footer {
+        margin-left: 220px;
+        width: calc(100% - 220px);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar">
+  <h2>Dashboard</h2>
+  <ul>
+    <li><a href="home.html" style="color: white; text-decoration: none;">Home</a></li>
+    <li><a href="overview.html" style="color: white; text-decoration: none;">Overview</a></li>
+    <li><a href="sales.html" style="color: white; text-decoration: none;">Sales</a></li>
+    <li><a href="customers.html" style="color: white; text-decoration: none;">Customers</a></li>
+    <li><a href="reports.html" style="color: white; text-decoration: none;">Reports</a></li>
+    <li><a href="feedback.html" style="color: white; text-decoration: none;">Feedback</a></li>
+    <li><a href="settings.html" style="color: white; text-decoration: none;">Settings</a></li>
+  </ul>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+  <div class="topbar">
+    <h1>Business Analytics - Feedback</h1>
+    <p>Welcome Mr. Durga Siva Sai Karthik Kumar</p>
+  </div>
+
+  <div class="feedback-list">
+    <h3>Customer Feedback</h3>
+
+    <!-- Feedback items go here (you already had 10, unchanged) -->
+    <!-- ... all the feedback-item divs ... -->
+    <!-- Example for one -->
+    <div class="feedback-item">
+      <h4>Narsimha Rao</h4>
+      <p><span>Email:</span> narsimha.rao@example.com</p>
+      <p><span>Suggestion Type:</span> Suggestion</p>
+      <p><span>Feedback:</span> "It would be great if the website had a mobile app for better access to business insights."</p>
+      <button class="reply-btn" onclick="toggleReplyBox(this)">💬 Reply</button>
+      <div class="reply-box">
+        <textarea placeholder="Write your reply here..."></textarea>
+        <button onclick="sendReply(this)">Send</button>
+      </div>
+    </div>
+     <!-- Customer Feedback Item 2 -->
+        <div class="feedback-item">
+            <h4>Syamala</h4>
+            <p><span>Email:</span> syamala.012@example.com</p>
+            <p><span>Suggestion Type:</span> Complaint</p>
+            <p><span>Feedback:</span> "The sales report is slow to load, and I am unable to download the report as a PDF."</p>
+            <button class="reply-btn" onclick="toggleReplyBox(this)">💬 Reply</button>
+            <div class="reply-box">
+                <textarea placeholder="Write your reply here..."></textarea>
+                <button onclick="sendReply(this)">Send</button>
+            </div>
+        </div>
+        <!-- Customer Feedback Item 3 -->
+        <div class="feedback-item">
+            <h4>Chandu</h4>
+            <p><span>Email:</span> Chandu.@example.com</p>
+            <p><span>Suggestion Type:</span> Query</p>
+            <p><span>Feedback:</span> "Can you provide more detailed analytics for customer demographics?"</p>
+            <button class="reply-btn" onclick="toggleReplyBox(this)">💬 Reply</button>
+            <div class="reply-box">
+                <textarea placeholder="Write your reply here..."></textarea>
+                <button onclick="sendReply(this)">Send</button>
+            </div>
+        </div>
+        <!-- Customer Feedback Item 4 -->
+        <div class="feedback-item">
+            <h4>Nirmal</h4>
+            <p><span>Email:</span> nirmal.manoj@example.com</p>
+            <p><span>Suggestion Type:</span> Suggestion</p>
+            <p><span>Feedback:</span> "I'd love to see a feature to compare sales performance across different regions."</p>
+            <button class="reply-btn" onclick="toggleReplyBox(this)">💬 Reply</button>
+            <div class="reply-box">
+                <textarea placeholder="Write your reply here..."></textarea>
+                <button onclick="sendReply(this)">Send</button>
+            </div>
+        </div>
+         <!-- Customer Feedback Item 5 -->
+          <div class="feedback-item">
+            <h4>Emma Wilson</h4>
+            <p><span>Email:</span> emma.wilson@example.com</p>
+            <p><span>Suggestion Type:</span> Suggestion</p>
+            <p><span>Feedback:</span> "Please use more secure packaging to avoid damage."</p>
+            <button class="reply-btn" onclick="toggleReplyBox(this)">💬 Reply</button>
+            <div class="reply-box">
+                <textarea placeholder="Write your reply here..."></textarea>
+                <button onclick="sendReply(this)">Send</button>
+            </div>
+        </div>
+         <!-- Customer Feedback Item 6 -->
+            <div class="feedback-item">
+            <h4>Charan</h4>
+            <p><span>Email:</span> charn.213@example.com</p>
+            <p><span>Suggestion Type:</span> Suggestion</p>
+            <p><span>Feedback:</span> "Consider eco-friendly materials for wrapping."</p>
+            <button class="reply-btn" onclick="toggleReplyBox(this)">💬 Reply</button>
+            <div class="reply-box">
+                <textarea placeholder="Write your reply here..."></textarea>
+                <button onclick="sendReply(this)">Send</button>
+            </div>
+        </div>
+         <!-- Customer Feedback Item 7 -->
+            <div class="feedback-item">
+            <h4>Vivek Metal</h4>
+            <p><span>Email:</span> vivek.metal@example.com</p>
+            <p><span>Suggestion Type:</span> Query</p>
+            <p><span>Feedback:</span> "How do I return or exchange this item?"</p>
+            <button class="reply-btn" onclick="toggleReplyBox(this)">💬 Reply</button>
+            <div class="reply-box">
+                <textarea placeholder="Write your reply here..."></textarea>
+                <button onclick="sendReply(this)">Send</button>
+            </div>
+        </div>
+        <!-- Customer Feedback Item 8 -->
+            <div class="feedback-item">
+            <h4>Mahesh</h4>
+            <p><span>Email:</span> mahesh.babu@example.com</p>
+            <p><span>Suggestion Type:</span> Query</p>
+            <p><span>Feedback:</span> "Is there a return label included?"</p>
+            <button class="reply-btn" onclick="toggleReplyBox(this)">💬 Reply</button>
+            <div class="reply-box">
+                <textarea placeholder="Write your reply here..."></textarea>
+                <button onclick="sendReply(this)">Send</button>
+            </div>
+        </div>
+        <!-- Customer Feedback Item 9-->
+            <div class="feedback-item">
+            <h4>Hiroto</h4>
+            <p><span>Email:</span> Hiroto.420@example.com</p>
+            <p><span>Suggestion Type:</span> Query</p>
+            <p><span>Feedback:</span> "How do I claim service if something goes wrong?"</p>
+            <button class="reply-btn" onclick="toggleReplyBox(this)">💬 Reply</button>
+            <div class="reply-box">
+                <textarea placeholder="Write your reply here..."></textarea>
+                <button onclick="sendReply(this)">Send</button>
+            </div>
+        </div>
+         <!-- Customer Feedback Item 10-->
+            <div class="feedback-item">
+            <h4>Andy</h4>
+            <p><span>Email:</span> Andy.320@example.com</p>
+            <p><span>Suggestion Type:</span> Query</p>
+            <p><span>Feedback:</span> "My order status still shows 'processing' even after delivery."</p>
+            <button class="reply-btn" onclick="toggleReplyBox(this)">💬 Reply</button>
+            <div class="reply-box">
+                <textarea placeholder="Write your reply here..."></textarea>
+                <button onclick="sendReply(this)">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- [Repeat for other feedback items...] -->
+
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <p>&copy; 2025 Business Analytics Dashboard. All rights reserved.</p>
+</footer>
+
+<script>
+  function toggleReplyBox(button) {
+    const replyBox = button.nextElementSibling;
+    replyBox.style.display = replyBox.style.display === 'block' ? 'none' : 'block';
+  }
+
+  function sendReply(button) {
+    const textarea = button.previousElementSibling;
+    const reply = textarea.value.trim();
+
+    if (reply) {
+      alert("Reply sent: " + reply); // Replace with actual logic (e.g., POST to server)
+      textarea.value = '';
+      button.parentElement.style.display = 'none';
+    } else {
+      alert("Please enter a reply.");
+    }
+  }
+</script>
+
+<script src="theme.js"></script>
+</body>
+</html>
