@@ -252,7 +252,7 @@ This project is developed for educational and learning purposes.
 
 GitHub: https://github.com/KatakamDurgaSivaSaiKarthikKumar
 
-LinkedIn: https://linkedin.com/in/your-linkedin-profile
+LinkedIn: https://www.linkedin.com/in/katakam-durga-siva-sai-karthik-kumar-1b4a4332b/
 
 ---
 
