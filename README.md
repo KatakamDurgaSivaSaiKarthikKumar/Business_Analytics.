@@ -132,7 +132,7 @@ Business-Analytics/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/Business-Analytics.git
+git clone https://github.com/KatakamDurgaSivaSaiKarthikKumar/Business-Analytics.git
 ```
 
 ### 2. Open the Project
