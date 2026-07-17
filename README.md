@@ -15,7 +15,7 @@ The project includes multiple modules such as:
 - 💰 Sales Analytics
 - 👥 Customer Management
 - 📋 Reports
-- 💡 Business Suggestions
+- 💡 Business Feedback & Suggestions
 - ⚙️ Settings
 - 🔐 Login Authentication
 
