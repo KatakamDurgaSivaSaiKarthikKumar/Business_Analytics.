@@ -132,7 +132,7 @@ Business-Analytics/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/KatakamDurgaSivaSaiKarthikKumar/Business-Analytics.git
+https://github.com/KatakamDurgaSivaSaiKarthikKumar/Business_Analytics.
 ```
 
 ### 2. Open the Project
@@ -256,4 +256,7 @@ LinkedIn: https://www.linkedin.com/in/katakam-durga-siva-sai-karthik-kumar-1b4a4
 
 ---
 
-## ⭐ If you like this project, don't forget to give it a Star!
+## ⭐ If you found this project useful,
+### ⭐ Please Star this Repository ⭐
+
+**Thank You ❤️**
